@@ -2,12 +2,14 @@
 
 const image = document.getElementById("image")
 const inputInfo = document.getElementById("search")
-info =searchInfo
-
-
+let info ='endgame'
 const movie = `https://movie-database-imdb-alternative.p.rapidapi.com/?s=${info}&r=json&page=1`
-function getAPI(movie){
-    fetch(movie, {
+
+
+callAPI(movie)
+
+function callAPI(movie_url){
+    fetch(movie_url, {
         "method": "GET",
                         "headers": {
                             "x-rapidapi-host": "movie-database-imdb-alternative.p.rapidapi.com",
@@ -24,27 +26,35 @@ function getAPI(movie){
             console.error(error);
         });
 
+    }
 
-function displayResults(movieInfo){
-    movieInfo.forEach(movieInfo => {
-        const {title, year, type, poster} = movieInfo
+
+
+ function displayResults(movieInfo){
+
+   
+     movieInfo.forEach(movieInfo => {
+        const {Title, Year, Type, Poster} = movieInfo
         const displayMovie = document.createElement('div')
-        displayMovie.classList.add('movie')
-            displayMovie.innerHTML = `<img src=${poster}>
+        displayMovie.classList.add('movieInfo')
+            displayMovie.innerHTML = `<img src=${Poster}>
 
-            <div> 
-            <h2>${title}</H2>
-            <p>${year}</p>
-            <p>${type}</p>
-            
-            </div>
-            
-            `
+                                        <div> 
+                                        <h2>${Title}</H2>
+                                        <p>${Year}</p>
+                                        <p>${Type}</p>
+                                        
+                                        </div>
+                                        
+                                        `
         
     });
 }
-}
-inputInfo.addEventListener("submit", (e) =>{
-    e.preventfault()
+
+inputInfo.addEventListener("submit", (e) =>{ 
+    
+    console.log(inputInfo);
+    // e.preventfault()
     const searchInfo = search.value
+    displayResults(searchInfo)
 })
